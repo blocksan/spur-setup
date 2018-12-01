@@ -5,29 +5,34 @@ const path = require('path');
 const spurWeb = require('spur-web');
 const winston = require('winston');
 const express = require('express');
+const bluebird = require('bluebird');
+const compression = require('compression');
 
 module.exports = function(){
   // define a  new injector
   const ioc = spurIoc.create('blotel');
-
-
     // Register configuration
     // registerConfig(ioc, path.join(__dirname, './config'));
 
   //register external dependencies or globals
   ioc.registerDependencies({
     '_'           : require('lodash'),
+    'http'        : require('http'),
     'path'        : path,
     'nodeProcess' : require('process'),
+    'Promise'     : bluebird,
     'express'     : express,
     'winston'     : winston,
+    'compression' : compression,
+    'methodOverride' : require('method-override'),
     'router'      : express.Router(),
     'async'       : require('async'),
     'bodyParser'  : require('body-parser'),
     'cookieParser': require('cookie-parser'),
     'morgan'      : require('morgan'),
-    'mongoose'    : require('mongoose'),
-    'mongoosePaginate' : require('mongoose-paginate'),
+    'Mongoose'    : require('mongoose'),
+    'MongooseSchema' : require('mongoose').Schema,
+    'MongoosePaginate' : require('mongoose-paginate'),
     'errorHanlder': require('errorhandler')
   });
 
@@ -37,8 +42,9 @@ module.exports = function(){
 
   // register folders in your project to be auto-injected
   ioc.registerFolders(__dirname, [
-    'controllers',
+    'apicontrollers',
     'services',
+    'models',
     'runtime',
   ]);
 
