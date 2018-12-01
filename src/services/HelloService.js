@@ -5,7 +5,7 @@ module.exports = () => {
 
         renderHello(req, res){
             const model = {
-                user: req.query.user || 'John Doe'
+                user: req.query.user || 'Saneep Ghosh'
               };
          
               res.render('index', model);
