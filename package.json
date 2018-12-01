@@ -1,7 +1,7 @@
 {
   "name": "blotel",
   "version": "1.0.0",
-  "description": "An application for the hotel management",
+  "description": "An application for the setting up spur configuration",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
