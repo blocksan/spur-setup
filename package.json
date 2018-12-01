@@ -32,5 +32,26 @@
     "spur-ioc": "^1.1.1",
     "spur-web": "^2.0.0",
     "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.2.0",
+    "eslint-plugin-node": "^5.1.0",
+    "mocha": "^4.0.1",
+    "mocha-reporter-teamcity-or-spec": "^1.0.2",
+    "nock": "^9.1.6",
+    "nodemon": "^1.14.12",
+    "open": "^0.0.5",
+    "requirejs": "^2.3.5",
+    "sinon": "^4.3.0",
+    "sinon-chai": "^2.14.0",
+    "sinon-mongoose": "^2.0.2",
+    "supertest": "^0.11.0"
+  },
+  "scripts": {
+    "prod": "NODE_ENV=production node src/app.js",
+    "dev": "NODE_ENV=development MODE=app nodemon src/app.js",
+    "unit": "NODE_ENV=test mocha --opts conf/mocha.opts test/unit",
+    "unit:watch": "NODE_ENV=test mocha --watch --opts conf/mocha.opts test/unit"
   }
 }

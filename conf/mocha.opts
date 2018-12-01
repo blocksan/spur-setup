@@ -1,0 +1,6 @@
+--require ./test/unit/index.js
+--recursive
+--timeout 10000
+--colors
+
+--reporter mocha-reporter-teamcity-or-spec
