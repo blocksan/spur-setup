@@ -6,7 +6,7 @@ var ip= 'localhost',
     port= '27017',
     uname = '',
     pwd = '',
-    db = 'test';
+    db = 'HMS';
 module.exports = function(){
     this.extends('default');
     return this.properties({

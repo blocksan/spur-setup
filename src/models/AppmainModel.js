@@ -10,7 +10,7 @@ return new class AppmainModel extends MongooseModel {
   createModel() {
     var AppmainSchema = new MongooseSchema({
       id : String,
-      address : String,
+      Address : String,
       name : String,
       displayname : String
     }, {

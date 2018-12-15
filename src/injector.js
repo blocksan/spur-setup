@@ -44,6 +44,7 @@ module.exports = function(){
   ioc.registerFolders(__dirname, [
     'apicontrollers',
     'services',
+    'helperfunctions',
     'models',
     'runtime',
   ]);
