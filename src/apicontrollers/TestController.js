@@ -1,9 +1,10 @@
-module.exports = (BaseController, ReportService)=>{
+module.exports = (BaseController, ReportService, AuthService)=>{
 
     return new class TestController extends BaseController{
         configure(app) {
             super.configure(app);
-            app.get('/api/testController/getTestAppMain', ReportService.getTestAppMain.bind(this));
+            let isAuth = AuthService.isAuthenticated;
+            app.get('/api/testController/getTestAppMain', isAuth(), ReportService.getTestAppMain.bind(this));
         }
     }
 

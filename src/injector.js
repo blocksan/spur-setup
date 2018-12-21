@@ -33,7 +33,9 @@ module.exports = function(){
     'Mongoose'    : require('mongoose'),
     'MongooseSchema' : require('mongoose').Schema,
     'MongoosePaginate' : require('mongoose-paginate'),
-    'errorHanlder': require('errorhandler')
+    'compose'     : require('composable-middleware'),
+    'errorHanlder': require('errorhandler'),
+    'bcrypt' : require('bcrypt')
   });
 
   registerConfig(ioc, path.join(__dirname, './config'));
@@ -43,10 +45,12 @@ module.exports = function(){
   // register folders in your project to be auto-injected
   ioc.registerFolders(__dirname, [
     'apicontrollers',
+    'middleware',
     'services',
     'helperfunctions',
     'models',
     'runtime',
+    
   ]);
 
 

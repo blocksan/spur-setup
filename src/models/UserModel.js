@@ -13,7 +13,7 @@ module.exports=(Mongoose,MongooseSchema,MongooseModel)=> {
                 id: Number,
                 password: String,
                 RoleId: String,
-                fullname: String
+                fullname: String,
             }, {
                 timestamps: true,
             });
