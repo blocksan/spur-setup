@@ -33,7 +33,8 @@ module.exports = function(){
     'Mongoose'    : require('mongoose'),
     'MongooseSchema' : require('mongoose').Schema,
     'MongoosePaginate' : require('mongoose-paginate'),
-    'errorHanlder': require('errorhandler')
+    'errorHanlder': require('errorhandler'),
+    'bcrypt' : require('bcrypt')
   });
 
   registerConfig(ioc, path.join(__dirname, './config'));
