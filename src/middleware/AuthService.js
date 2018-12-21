@@ -115,14 +115,14 @@ module.exports = (UserModel, bcrypt, compose) => {
             // Remove Bearer from string
             token = token.slice(7, token.length);
           }
-          jwt.verify(token, config.secret, (err, decoded) => {
+          jwt.verify(token, config.secret, (err, user) => {
             if (err) {
               return res.json({
                 success: false,
                 message: 'Token is not valid'
               });
             } else {
-              req.decoded = decoded;
+              req.user = user;
               next();
             }
           });

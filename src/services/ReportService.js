@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, RoomModel, QueryBuilder) => {
+module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, RoomModel, QueryBuilder, UserModel) => {
     return new class ReportService {
 
         constructor() {
@@ -61,20 +61,28 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
             }
         }
 
+        
+
+
         /**
-         * function returns the hotels of a user with room occupied
-         * @param {Number} userId 
-         * @return hotels
+         * function to return hotels of user with their data
+         * @param {Object} req 
+         * @param {Object} res 
+         * @returns {Array} result
          */
         async getHotelsByUser(req, res) {
             try {
                 let userId;
-                if (req.query.userId) {
-                    userId = req.query.userId
+                if (req.user.username) {
+                    try{
+                        let user = await UserModel.findOne({username:req.user.username}).lean().exec()
+                        userId = user.id
+                    }catch(err){
+                        throw Error("user not found")
+                    }
                 }else{
-                    // throw Error("user not found")
+                    throw Error("user not found")
                 }
-                userId = 1;
 
                 //dummy query
                 // var hotelIds = [1];
@@ -185,7 +193,7 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
 
             } catch (err) {
                 console.log('Error in querying for the hotels for the user ', err)
-                res.status(400).send({err})
+                res.status(400).send(err.message)
             }
         }
 
