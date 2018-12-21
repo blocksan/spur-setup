@@ -33,6 +33,7 @@ module.exports = function(){
     'Mongoose'    : require('mongoose'),
     'MongooseSchema' : require('mongoose').Schema,
     'MongoosePaginate' : require('mongoose-paginate'),
+    'compose'     : require('composable-middleware'),
     'errorHanlder': require('errorhandler'),
     'bcrypt' : require('bcrypt')
   });
@@ -44,9 +45,11 @@ module.exports = function(){
   // register folders in your project to be auto-injected
   ioc.registerFolders(__dirname, [
     'apicontrollers',
+    'middleware',
     'services',
     'models',
     'runtime',
+    
   ]);
 
 

@@ -4,6 +4,7 @@ module.exports = (BaseController, AuthService)=>{
         configure(app) {
             super.configure(app);
             app.get('/api/auth/login', AuthService.login.bind(this));
+            app.post('/api/auth/signup', AuthService.createUser.bind(this));
         }
     }
 
