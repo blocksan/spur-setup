@@ -5,10 +5,6 @@ module.exports = (AppmainModel, ArrivalModel, FloorModel, GuestModel, HotelModel
 
         }
 
-        getIncome(req,res){
-            res.status(200).json({"message" : "api service page"})
-        }
-
         /**
          * function to return the Appmain
          * @param {*} req 
