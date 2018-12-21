@@ -11,7 +11,7 @@ module.exports=(Mongoose,MongooseSchema,MongooseModel)=> {
             var HotelSchema = new MongooseSchema({
                 hotelName: String,
                 hotelId: Number,
-                user: String
+                user: Number
             }, {
                 timestamps: true,
             });

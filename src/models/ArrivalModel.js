@@ -1,4 +1,5 @@
 'use strict';
+const ejson = require('mongodb-extjson');
 
 module.exports=(Mongoose,MongooseSchema,MongooseModel)=> {
     return new class ArrivalModel extends MongooseModel {
@@ -34,6 +35,14 @@ module.exports=(Mongoose,MongooseSchema,MongooseModel)=> {
             }, {
                 timestamps: true,
             });
+            ArrivalSchema.pre('aggregate', function () {
+                let pipeline = this.pipeline();
+                pipeline.forEach(stage => {
+                  let topLevelKey = Object.keys(stage)[0];
+                  let json = ejson.stringify(stage[topLevelKey]);
+                  stage[topLevelKey] = ejson.parse(json);
+                });
+              });
             return Mongoose.model('Arrival', ArrivalSchema);
         }
     }
