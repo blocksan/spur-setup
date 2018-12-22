@@ -36,5 +36,8 @@
     "spur-ioc": "^1.1.1",
     "spur-web": "^2.0.0",
     "winston": "^3.1.0"
+  },
+  "scripts":{
+    "start" : "node src/app.js"
   }
 }
