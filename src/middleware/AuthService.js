@@ -20,28 +20,30 @@ module.exports = (UserModel, bcrypt, compose) => {
 
             let token = AuthService.createToken(username, config);
             // return the JWT token for the future API calls
-            res.json({
-              success: true,
-              message: 'Authentication successful!',
-              token: token
+            res.status(200).send({
+              status: true,
+              data : {
+                token: token,
+                message: 'Authentication successful!',
+              },
             });
           } else {
             return res.status(403).json({
-              success: false,
-              message: 'Incorrect username or password'
+              status: false,
+              error : 'Incorrect username or password' 
             });
           }
         } catch (err) {
           return res.status(400).json({
-            success: false,
-            message: err.message
+            status: false,
+            error:  { message: err.message }
           });
         }
 
       } else {
         return res.status(400).json({
-          success: false,
-          message: 'Authentication failed! Please pass the correct input'
+          status: false,
+          error : 'Authentication failed! Please pass the correct input' 
         });
       }
 
@@ -69,12 +71,15 @@ module.exports = (UserModel, bcrypt, compose) => {
           // await user.save()
           let token = AuthService.createToken(username, config)
           return res.status(200).send({
-            token: token
+            status : true,
+            data : {
+              token: token
+            }
           })
         }
         throw new Error("user already exist in the system");
       } catch (err) {
-        res.status(400).send(err.message)
+        res.status(400).send({status : false, error : err.message })
       }
     }
 
