@@ -10,9 +10,9 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
         async getTestAppMain(req, res) {
             try {
                 let result = await AppmainModel.find({})
-                res.status(200).send(result)
+                res.status(200).send({ status : true, data: result })
             } catch (err) {
-                res.status(400).send(err)
+                res.status(400).send({status: false, error: err.message})
             }
         }
 
@@ -49,7 +49,7 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                             "rooms" : rooms,
                             "dates" : [ { lable: "today", key : "today" }, { label : "Last 7 days", key: "last7days"}, { label : "Last 90 days", key : "last90days" }, {label : "all", key : "all"}]
                         }
-                        return res.status(200).send(formattedObj);
+                        return res.status(200).send({status:true, data: formattedObj });
                     }else{
                         throw Error("No Room found for the user")
                     }
@@ -57,7 +57,7 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                 throw new Error("Error in fetching the filter list")
                 
             }catch(err){
-                res.status(400).send(err.message)
+                return res.status(400).send({ status : false, error : err.message })
             }
         }
 
@@ -188,12 +188,12 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                         }
                         
                     })
-                    res.status(200).send(result)
+                    res.status(200).send({status: true , data : result })
                 }
 
             } catch (err) {
                 console.log('Error in querying for the hotels for the user ', err)
-                res.status(400).send(err.message)
+                res.status(400).send({status: false, error: err.message})
             }
         }
 
@@ -247,10 +247,10 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                     })
                 }
 
-                res.status(200).send({data:result , extraInfo:extraInfo})
+                res.status(200).send({ status : true, data :{data:result , extraInfo:extraInfo} })
             } catch (err) {
                 console.log('Error in getting room count ', err)
-                res.status(400).send({err})
+                res.status(400).send({ status: false, error: err.message })
             }
         }
 
@@ -294,10 +294,10 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                     })
                 }
 
-                res.status(200).send({data:result , extraInfo:extraInfo})
+                res.status(200).send({ status: true, data: {data:result , extraInfo:extraInfo} })
             } catch (err) {
                 console.log('Error in getting normal reports ', err)
-                res.status(400).send({err})
+                res.status(400).send({status: false, error : err.message})
             }
         }
 
@@ -344,10 +344,10 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                     })
                 }
 
-                res.status(200).send({data:result , extraInfo:extraInfo})
+                res.status(200).send({ status : true, data : {data:result , extraInfo:extraInfo}})
             } catch (err) {
                 console.log('Error in getting normal reports ', err)
-                res.status(400).send({err})
+                res.status(400).send({ status: false, error: err.message})
             }
 
         }
