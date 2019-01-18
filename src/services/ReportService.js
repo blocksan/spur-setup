@@ -44,10 +44,10 @@ module.exports = (_, AppmainModel, HotelModel, ArrivalModel, LookupstatusModel, 
                 if(req.query.hotelId){
                     let rooms = await RoomModel.find({hotelId : parseInt(req.query.hotelId)}).lean().exec()
                     if(rooms.length){
-                        rooms.push({"room_display": "all", room_no: null, _id : null })
+                        rooms.push({"room_display": "All", room_no: null, _id : null })
                         let formattedObj = {
                             "rooms" : rooms,
-                            "dates" : [ { lable: "today", key : "today" }, { label : "Last 7 days", key: "last7days"}, { label : "Last 90 days", key : "last90days" }, {label : "all", key : "all"}]
+                            "dates" : [ { label: "Today", key : "today" }, { label : "Last 7 days", key: "last7days"}, { label : "Last 90 days", key : "last90days" }, {label : "All", key : "all"}]
                         }
                         return res.status(200).send({status:true, data: formattedObj });
                     }else{

@@ -36,7 +36,7 @@ module.exports = (UserModel, bcrypt, compose) => {
         } catch (err) {
           return res.status(400).json({
             status: false,
-            error:  { message: err.message }
+            error: err.message
           });
         }
 
@@ -124,7 +124,7 @@ module.exports = (UserModel, bcrypt, compose) => {
             if (err) {
               return res.json({
                 success: false,
-                message: 'Token is not valid'
+                error: 'Token is not valid'
               });
             } else {
               req.user = user;
@@ -134,7 +134,7 @@ module.exports = (UserModel, bcrypt, compose) => {
         } else {
           return res.json({
             success: false,
-            message: 'Auth token is not supplied'
+            error: 'Auth token is not supplied'
           });
         }
       })
