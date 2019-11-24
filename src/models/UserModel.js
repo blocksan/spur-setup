@@ -9,11 +9,11 @@ module.exports=(Mongoose,MongooseSchema,MongooseModel)=> {
 
         createModel() {
             var UserSchema = new MongooseSchema({
-                username: String,
+                userCode: String,
+                userOrg: String,                
+                userName: String,
                 id: Number,
-                password: String,
-                RoleId: String,
-                fullname: String,
+                password: String
             }, {
                 timestamps: true,
             });

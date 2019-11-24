@@ -2,12 +2,12 @@
 
 // Development specific configuration
 // ==================================
-// var ip= 'localhost';
-var ip = '208.68.39.149',
+var ip= 'localhost',
+// var ip = '208.68.39.149',
     port= '27017',
     uname = '',
     pwd = '',
-    db = 'HMS';
+    db = 'ems';
 module.exports = function(){
     this.extends('default');
     return this.properties({

@@ -4,7 +4,7 @@
   "description": "An application for the setting up spur configuration",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js"
   },
   "keywords": [
     "spur",
@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.1",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.18.3",
     "composable-middleware": "^0.3.0",
     "compression": "^1.7.3",
@@ -29,6 +29,7 @@
     "mongoose": "^5.3.13",
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.9.1",
+    "nodemon": "^2.0.1",
     "path": "^0.12.7",
     "process": "^0.11.10",
     "spur-common": "^2.1.0",
@@ -37,7 +38,7 @@
     "spur-web": "^2.0.0",
     "winston": "^3.1.0"
   },
-  "scripts":{
-    "start" : "node src/app.js"
+  "devDependencies": {
+    "nodemon": "^2.0.1"
   }
 }

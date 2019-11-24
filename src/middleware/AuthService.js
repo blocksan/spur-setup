@@ -10,15 +10,15 @@ module.exports = (UserModel, bcrypt, compose) => {
 
 
     async login(req, res) {
-      let username = req.body.username;
+      let userName = req.body.userName;
       let password = req.body.password;
       
-      if (username && password) {
+      if (userName && password) {
         try {
           let passwordMatch = await AuthService.verifyPassword(req);
           if (passwordMatch) {
 
-            let token = AuthService.createToken(username, config);
+            let token = AuthService.createToken(userName, config);
             // return the JWT token for the future API calls
             res.status(200).send({
               status: true,
@@ -30,7 +30,7 @@ module.exports = (UserModel, bcrypt, compose) => {
           } else {
             return res.status(403).json({
               status: false,
-              error : 'Incorrect username or password' 
+              error : 'Incorrect userName or password' 
             });
           }
         } catch (err) {
@@ -51,25 +51,27 @@ module.exports = (UserModel, bcrypt, compose) => {
 
     async createUser(req, res) {
       try {
-        let password = req.body.password;
-        let username = req.body.username;
+        const {password, userName, userCode, userOrg}= req.body;
+        
         let hash = await bcrypt.hash(password, config.saltRounds)
         // Store hash in your password DB.
 
         //check for the existing user
         let user = await UserModel.findOne({
-          username: username
+          userCode
         }).lean().exec()
 
         if (!user) {
           let totalUsers = await UserModel.find({}).count().lean().exec();
           await UserModel.createOne({
-            username: username,
+            userName,
             id: totalUsers + 1,
+            userCode,
+            userOrg,
             password: hash
           })
           // await user.save()
-          let token = AuthService.createToken(username, config)
+          let token = AuthService.createToken(userName, config)
           return res.status(200).send({
             status : true,
             data : {
@@ -83,18 +85,18 @@ module.exports = (UserModel, bcrypt, compose) => {
       }
     }
 
-    static createToken(username, config) {
+    static createToken(userName, config) {
       return jwt.sign({
-        username: username
+        userName: userName
       }, config.secret);
     }
 
     static async verifyPassword(req) {
       try {
         let password = req.body.password;
-        let username = req.body.username;
+        let userName = req.body.userName;
         let user = await UserModel.findOne({
-          username: username
+          userName: userName
         }).lean().exec()
         if (user) {
           let isMatch = await bcrypt.compare(password, user.password);
