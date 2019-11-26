@@ -10,15 +10,18 @@ module.exports = (UserModel, bcrypt, compose) => {
 
 
     async login(req, res) {
-      let userName = req.body.userName;
+      let userCode = req.body.userCode;
       let password = req.body.password;
       
-      if (userName && password) {
+      if (userCode && password) {
         try {
-          let passwordMatch = await AuthService.verifyPassword(req);
+          const user = await UserModel.findOne({
+            userCode:userCode
+          }).lean().exec()
+          let passwordMatch = await AuthService.verifyPassword(req, user);
           if (passwordMatch) {
 
-            let token = AuthService.createToken(userName, config);
+            let token = AuthService.createToken(user, config);
             // return the JWT token for the future API calls
             res.status(200).send({
               status: true,
@@ -30,20 +33,26 @@ module.exports = (UserModel, bcrypt, compose) => {
           } else {
             return res.status(403).json({
               status: false,
-              error : 'Incorrect userName or password' 
+              error : {
+                message: 'Incorrect username or password' 
+              }
             });
           }
         } catch (err) {
           return res.status(400).json({
             status: false,
-            error: err.message
+            error: {
+              message:err.message
+            }
           });
         }
 
       } else {
         return res.status(400).json({
           status: false,
-          error : 'Authentication failed! Please pass the correct input' 
+          error : {
+            message:'Authentication failed! Please enter the correct details' 
+          }
         });
       }
 
@@ -85,19 +94,17 @@ module.exports = (UserModel, bcrypt, compose) => {
       }
     }
 
-    static createToken(userName, config) {
+    static createToken(user, config) {
       return jwt.sign({
-        userName: userName
+        userName: user.userName,
+        _id: user._id,
+        userCode: user.userCode
       }, config.secret);
     }
 
-    static async verifyPassword(req) {
+    static async verifyPassword(req, user) {
       try {
-        let password = req.body.password;
-        let userName = req.body.userName;
-        let user = await UserModel.findOne({
-          userName: userName
-        }).lean().exec()
+        let password = req.body.password;        
         if (user) {
           let isMatch = await bcrypt.compare(password, user.password);
           if (isMatch) {

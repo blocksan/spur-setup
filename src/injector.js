@@ -7,6 +7,7 @@ const winston = require('winston');
 const express = require('express');
 const bluebird = require('bluebird');
 const compression = require('compression');
+const ipInfo = require("ipinfo");
 
 module.exports = function(){
   // define a  new injector
@@ -35,7 +36,9 @@ module.exports = function(){
     'MongoosePaginate' : require('mongoose-paginate'),
     'compose'     : require('composable-middleware'),
     'errorHanlder': require('errorhandler'),
-    'bcrypt' : require('bcrypt')
+    'bcrypt' : require('bcrypt'),
+    'DistanceCalculator': require('./utils/DistanceCalculator'),
+    'ipInfo' : ipInfo
   });
 
   registerConfig(ioc, path.join(__dirname, './config'));
